@@ -1,0 +1,545 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main(void) {
+
+    int playagain = 0;
+    while (playagain == 0) {
+
+        int difficultylevel = 0, onetonine = 0, roworcolumn = 0, onetothree = 0, counter = 0, success = 0, fail = 0, d = 0;
+        int main_board[9] = { 1,2,3,4,5,6,7,8,9 }, how_many_numbers_to_remove[4] = { 1,3,5,7 }, one_d_copy3by3[9] = { 0 }, user_input[7] = { 0 };
+        int result1[3] = { 0 }, result2[3] = { 0 }, c = 0, f = 0;
+
+        /*printf(" = %d", result1[f]);
+        f = f + 1;
+        */
+        /*result1[f] = vert_ans[b / 2];
+        f = f + 1;
+        */
+        /*int counter2;
+        printf("\n\n");
+        for (counter = 0; counter < how_many_numbers_to_remove[4]; counter++) {
+            printf("let user enter missing numbers");
+            scanf_s("%d", compare[7]);
+        }
+        if (random_removed_numbers[7] == compare[7])
+            printf("congrats you won");
+        else
+            printf("you lost");
+            */
+
+
+        printf("Welcome to Nine-Gaps game!...\n");
+        printf("*****************************\n");
+        printf(" ***************** \n");
+        printf(" ***** \n");
+        printf(" * \n");
+
+
+
+
+
+        while (difficultylevel != 1 && 2 && 3 && 4) {
+            printf("enter difficulty level:  ");
+            scanf("%d", &difficultylevel);
+
+            if (difficultylevel >= 1 && difficultylevel <= 4)
+                break;
+            else
+                printf("invalid difficulty level, ");
+        }
+
+        while (onetonine > 0 && onetonine < 10) {
+            printf("enter a number between 1 and 9\n");
+            scanf("%d", &onetonine);
+
+            if (onetonine >= 1 && onetonine <= 9)
+                break;
+            else
+                printf("invalid input, ");
+        }
+        
+
+
+
+        int multiplication = 0, addition = 0, subtraction = 0, result = 0;
+        int board[3][3] = { 0 }, total_board[5][5] = { 0 }, copy_board[5][5] = { 0 };
+        int a = 0, b, number = 0;
+
+        //int main_board[9] = { 1,2,0,4,5,6,7,8,9 };
+        // creates 3 * 3 board
+        int is_filled = 0;
+        srand(time(0));
+        for (a = 0; a < 3; a++) {
+            for (b = 0; b < 3; b++) {
+                is_filled = 0;
+                while (is_filled == 0)
+                {
+                    int index = rand() % 9;
+
+                    int randomly_selected_number_from_array = main_board[index];
+
+                    if (randomly_selected_number_from_array != 0)
+                    {
+                        board[a][b] = randomly_selected_number_from_array;
+                        one_d_copy3by3[d] = randomly_selected_number_from_array;
+                        main_board[index] = 0;
+                        is_filled = 1;
+                        d = d + 1;
+                    }
+
+                }
+
+
+            }
+        }
+        for (d = 0; d < 9; d++) {
+            printf("%d  ", one_d_copy3by3[d]);
+        }
+
+
+
+        for (a = 0; a < 3; a++) {
+            printf("\n\n");
+            for (b = 0; b < 3; b++) {				// generates 3*3 board
+                printf("%d  ", board[a][b]);
+
+            }
+        }
+
+        printf("\n\n");
+
+        for (a = 0; a < 5; a++) {
+            for (b = 0; b < 5; b++) {
+                total_board[a][b] = rand() % 3;
+
+
+            }
+        }
+        for (a = 0; a < 3; a++) {
+            for (b = 0; b < 3; b++) {
+                total_board[2 * a][2 * b] = board[a][b];
+            }
+        }
+
+        for (a = 0; a < 5; a++) {
+            printf("\n");
+            for (b = 0; b < 5; b++) {
+                copy_board[a][b] = total_board[a][b];
+                printf("%d  ", total_board[a][b]);
+
+
+            }
+        }
+        printf("\n"); printf("\n");
+
+        int n1, n2, n3;
+        int op1, op2;
+        int hrz_ans[3] = { 0 };
+        int vert_ans[3] = { 0 };
+        for (a = 0; a < 5; a += 2)
+        {
+            n1 = total_board[a][0];
+            n2 = total_board[a][2];
+            n3 = total_board[a][4];
+            op1 = total_board[a][1];
+            op2 = total_board[a][3];
+
+
+            if (op1 == 2) {
+                multiplication = n1 * n2;
+                if (op2 == 0) {
+                    hrz_ans[a / 2] = multiplication + n3;
+
+                }
+                if (op2 == 1) {
+                    hrz_ans[a / 2] = multiplication - n3;
+
+                }
+                if (op2 == 2) {
+                    hrz_ans[a / 2] = multiplication * n3;
+
+                }
+                printf("result of row is %d\n", hrz_ans[a / 2]);
+            }
+            else if (op1 == 1) {
+
+                if (op2 == 0) {
+
+                    hrz_ans[a / 2] = n2 + n3;
+
+                    hrz_ans[a / 2] = n1 - hrz_ans[a / 2];
+
+                }
+                if (op2 == 1) {
+
+                    hrz_ans[a / 2] = n1 - n2;
+
+                    hrz_ans[a / 2] = hrz_ans[a / 2] - n3;
+
+                }
+                if (op2 == 2) {
+
+                    hrz_ans[a / 2] = n2 * n3;
+
+                    hrz_ans[a / 2] = n1 - hrz_ans[a / 2];
+
+                }
+                printf("result of row is %d\n", hrz_ans[a / 2]);
+            }
+            else //if (operation == 0)
+            {
+
+                if (op2 == 0) {
+
+                    hrz_ans[a / 2] = n2 + n3;
+
+                    hrz_ans[a / 2] = n1 + hrz_ans[a / 2];
+
+                }
+                else if (op2 == 1) {
+
+                    hrz_ans[a / 2] = n2 - n3;
+                    hrz_ans[a / 2] = n1 + hrz_ans[a / 2];
+
+
+                }
+                else if (op2 == 2) {
+
+                    hrz_ans[a / 2] = n2 * n3;
+
+                    hrz_ans[a / 2] = n1 + hrz_ans[a / 2];
+
+                }
+                printf("result of row is %d\n", hrz_ans[a / 2]);
+
+
+
+
+
+
+
+
+            }
+
+            result1[c] = hrz_ans[a / 2];
+            c = c + 1;
+        }
+
+
+
+        printf("\n\n");
+
+
+
+
+        int multiplication1 = 0;
+
+
+        for (b = 0; b < 5; b += 2)
+        {
+            n1 = total_board[0][b];
+            n2 = total_board[2][b];
+            n3 = total_board[4][b];
+            op1 = total_board[1][b];
+            op2 = total_board[3][b];
+
+
+
+
+            if (op1 == 2) {
+                multiplication1 = n1 * n2;
+                if (op2 == 0) {
+                    vert_ans[b / 2] = multiplication1 + n3;
+
+                }
+                if (op2 == 1) {
+                    vert_ans[b / 2] = multiplication1 - n3;
+
+                }
+                if (op2 == 2) {
+                    vert_ans[b / 2] = multiplication1 * n3;
+
+                }
+                printf("result of column is %d\n", vert_ans[b / 2]);
+            }
+            else if (op1 == 1) {
+
+                if (op2 == 0) {
+
+                    vert_ans[b / 2] = n2 + n3;
+
+                    vert_ans[b / 2] = vert_ans[b / 2];
+
+                }
+                if (op2 == 1) {
+
+                    vert_ans[b / 2] = n1 - n2;
+
+                    vert_ans[b / 2] = vert_ans[b / 2] - n3;
+
+                }
+                if (op2 == 2) {
+
+                    vert_ans[b / 2] = n2 * n3;
+
+                    vert_ans[b / 2] = n1 - vert_ans[b / 2];
+
+                }
+                printf("result of column is %d\n", vert_ans[b / 2]);
+            }
+            else //if (operation == 0)
+            {
+
+                if (op2 == 0) {
+
+                    vert_ans[b / 2] = n2 + n3;
+
+                    vert_ans[b / 2] = n1 + vert_ans[b / 2];
+
+                }
+                else if (op2 == 1) {
+
+                    vert_ans[b / 2] = n2 - n3;
+                    vert_ans[b / 2] = n1 + vert_ans[b / 2];
+
+
+                }
+                else if (op2 == 2) {
+
+                    vert_ans[b / 2] = n2 * n3;
+
+                    vert_ans[b / 2] = n1 + vert_ans[b / 2];
+
+                }
+                printf("result of column is %d\n", vert_ans[b / 2]);
+            }
+            result2[f] = vert_ans[b / 2];
+            f = f + 1;
+
+        }
+
+
+
+
+        // loop  for random  numbers to remove from matrix
+        int x, random_removed_numbers[7] = { 0 }, random_removed_indices[7] = { 0 };
+
+        int counter_of_removed_numbers = 0;
+        for (x = 0; x < how_many_numbers_to_remove[difficultylevel - 1]; x++)
+        {
+            is_filled = 0;
+            while (is_filled == 0)
+            {
+                int index1 = rand() % 9;
+
+                int randomly_selected_number = one_d_copy3by3[index1];
+                if (randomly_selected_number != 0)
+                {
+                    random_removed_numbers[counter_of_removed_numbers] = randomly_selected_number;
+                    random_removed_indices[counter_of_removed_numbers] = index1;
+                    one_d_copy3by3[index1] = 0;
+                    is_filled = 1;
+                    counter_of_removed_numbers++;
+
+
+                }
+            }
+        }
+        printf("\n\n\n");
+        c = 0;
+        for (int vertical = 0; vertical < 5; vertical++)
+        {
+            if (vertical % 2 == 0) // row 0, 2, 4
+            {
+                for (int horiz = 0; horiz < 5; horiz++) {
+
+
+                    if (horiz % 2 == 0) // even
+                    {
+                        printf("  %d", total_board[vertical][horiz]);
+                    }
+
+                    else // odd
+                    {
+                        if (total_board[vertical][horiz] == 0)
+                            printf(" + ");
+                        else if (total_board[vertical][horiz] == 1)
+                            printf(" - ");
+                        else
+                            printf(" * ");
+                    }
+
+
+
+                }
+
+
+
+
+
+
+
+            }
+
+            else // row 1, 3
+            {
+                for (int horiz = 0; horiz < 5; horiz++) {
+                    if (horiz % 2 == 0)
+                    {
+                        if (total_board[vertical][horiz] == 0)
+                            printf("  + ");
+                        else if (total_board[vertical][horiz] == 1)
+                            printf("  - ");
+                        else
+                            printf("  * ");
+                    }
+                    else
+                        printf("  ");
+                }
+            }
+            printf("\n");
+
+        }
+        printf(" =     =     =");
+        printf("\n");
+        for (f = 0; f < 3; f++)
+            printf("  %d  ", result2[f]);
+
+        printf("\n\n\n\n");
+
+
+        for (int i = 0; i < how_many_numbers_to_remove[difficultylevel - 1]; i++)
+        {
+            int v, h;
+            int index1d = random_removed_indices[i];
+            if (index1d < 3)
+            {
+                v = 0;
+                h = index1d % 3;
+            }
+            else if (index1d < 6)
+            {
+                v = 1;
+                h = index1d % 3;
+            }
+            else
+            {
+                v = 2;
+                h = index1d % 3;
+            }
+            total_board[2 * v][2 * h] = 0;
+        }
+
+
+        for (int vertical = 0; vertical < 5; vertical++)
+        {
+            if (vertical % 2 == 0) // row 0, 2, 4
+            {
+                for (int horiz = 0; horiz < 5; horiz++) {
+
+                    if (horiz % 2 == 0) // even
+                    {
+                        if (total_board[vertical][horiz] == 0)
+                            printf("  ?");
+                        else
+                            printf("  %d", total_board[vertical][horiz]);
+
+
+                    }
+                    else // odd
+                    {
+                        if (total_board[vertical][horiz] == 0)
+                            printf(" + ");
+                        else if (total_board[vertical][horiz] == 1)
+                            printf(" - ");
+                        else
+                            printf(" * ");
+
+                    }
+
+                }
+
+                printf(" = %d", result1[c]);
+                c = c + 1;
+                printf("\n");
+
+            }
+            else // row 1, 3
+            {
+                for (int horiz = 0; horiz < 5; horiz++) {
+                    if (horiz % 2 == 0)
+                    {
+                        if (total_board[vertical][horiz] == 0)
+                            printf("  + ");
+                        else if (total_board[vertical][horiz] == 1)
+                            printf("  - ");
+                        else
+                            printf("  * ");
+                    }
+                    else
+                        printf("  ");
+
+                }
+                printf("\n");
+            }
+        }
+
+        printf(" =     =     =");
+        printf("\n");
+        for (f = 0; f < 3; f++)
+            printf("  %d  ", result2[f]);
+
+        printf("\n\n\n\n");
+
+        int number_of_removed_elements = how_many_numbers_to_remove[difficultylevel - 1];
+        int counter2, hold, holdn;
+        printf("\n\n");
+        for (counter2 = 0; counter2 < number_of_removed_elements; counter2++) {
+            printf("enter new number");
+            scanf("%d", &user_input[counter2]);
+        }
+
+        //random_removed_numbers // 1, 3 , 2    3 1 2
+        //random_removed_indices // 5, 3, 8     3 5 8
+        for (int pass = 1; pass < number_of_removed_elements; pass++)
+        {
+            for (int j = 0; j <= number_of_removed_elements - pass- 1; j++)
+            {
+                if (random_removed_indices[j] > random_removed_indices[j + 1])
+                {
+                    hold = random_removed_indices[j];
+                    random_removed_indices[j] = random_removed_indices[j + 1];
+                    random_removed_indices[j + 1] = hold;
+                    holdn = random_removed_numbers[j];
+                    random_removed_numbers[j] = random_removed_numbers[j + 1];
+                    random_removed_numbers[j + 1] = holdn;
+
+                }
+            }
+        }
+
+
+        int cnt_correct = 0;
+        for (int i = 0; i < number_of_removed_elements; i++)
+        {
+            if (random_removed_numbers[i] == user_input[i])
+            {
+                cnt_correct++;
+            }
+        }
+        if(cnt_correct == number_of_removed_elements)
+            printf("you won! \n");
+        else
+            printf("you lost... \n");
+
+
+        printf("would you like to play again ?(0=yes;1=no)");
+        scanf("%d", &playagain);
+
+        if (playagain == 1)
+            printf("Goodbye");
+    }
+}
+
